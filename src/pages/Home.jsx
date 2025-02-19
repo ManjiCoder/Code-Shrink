@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { appInfo } from '../constants/appInfo';
 
 export default function Home() {
@@ -26,16 +28,20 @@ export default function Home() {
           <label htmlFor='code' className='leading-7 text-xl font-medium'>
             Before:
           </label>
-          <pre className='mt-3 shadow-md rounded-md p-3 bg-slate-50'>
-            {code}
+          <pre className='mt-3 shadow-md rounded-md p-4 bg-slate-50'>
+            <SyntaxHighlighter language='html' style={monokai}>
+              {code}
+            </SyntaxHighlighter>
           </pre>
         </div>
         <div className='relative'>
           <label htmlFor='code' className='leading-7 text-xl font-medium'>
             After:
           </label>
-          <pre className='mt-3 shadow-md rounded-md p-3 bg-slate-50'>
-            {code}
+          <pre className='mt-3 shadow-md rounded-md p-4 bg-slate-50'>
+            <SyntaxHighlighter language='html' style={monokai}>
+              {code}
+            </SyntaxHighlighter>
           </pre>
         </div>
       </section>
