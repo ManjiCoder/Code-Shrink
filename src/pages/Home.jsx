@@ -40,29 +40,33 @@ export default function Home() {
           <label htmlFor='code' className='leading-7 text-xl font-medium'>
             Before:
           </label>
-          <pre className='mt-3 shadow-md rounded-md p-4 bg-slate-50'>
-            {/* <SyntaxHighlighter language='html' style={monokai}> */}
-            {code}
-            {/* </SyntaxHighlighter> */}
-          </pre>
+          {code && (
+            <pre className='mt-3 text-wrap group break-words shadow-md rounded-md p-4 bg-slate-50'>
+              {/* <SyntaxHighlighter language='html' style={monokai}> */}
+              {code}
+              {/* </SyntaxHighlighter> */}
+            </pre>
+          )}
         </div>
         <div className='relative'>
           <label htmlFor='code' className='leading-7 text-xl font-medium'>
             After:
           </label>
-          <pre className='mt-3 text-wrap break-words shadow-md rounded-md p-4 bg-slate-50 relative'>
-            <span
-              className='absolute top-2 right-2 z-10 bg-slate-200 hover:bg-slate-900 hover:cursor-pointer hover:text-white px-2 font-medium py-1 rounded-sm'
-              onClick={() => {
-                navigator.clipboard.writeText(state);
-              }}
-            >
-              Copy
-            </span>
-            {/* <SyntaxHighlighter language='html' style={monokai}> */}
-            {state}
-            {/* </SyntaxHighlighter> */}
-          </pre>
+          {code && (
+            <pre className='mt-3 text-wrap break-words shadow-md rounded-md p-4 bg-slate-50 relative'>
+              <span
+                className='absolute top-2 right-2 z-10 bg-slate-200 hover:bg-slate-900 hover:cursor-pointer hover:text-white px-2 font-medium py-1 rounded-md'
+                onClick={() => {
+                  navigator.clipboard.writeText(state);
+                }}
+              >
+                Copy
+              </span>
+              {/* <SyntaxHighlighter language='html' style={monokai}> */}
+              {state}
+              {/* </SyntaxHighlighter> */}
+            </pre>
+          )}
         </div>
       </section>
     </main>
