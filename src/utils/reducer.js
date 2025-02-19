@@ -11,14 +11,22 @@ const baiseMinify = (htmlStr) => {
   newHtmlStr = newHtmlStr.replaceAll('px', '');
   return newHtmlStr;
 };
-const myReducer = (state, action) => {
-  const { type } = action;
-  if (type === 'BASIC-MINIFY') {
-    const newCode = baiseMinify(action.payload.code);
-    return newCode;
-  } else {
-    return state;
+// Main Reducer
+export const codeReducerInitialState = {
+  code: '',
+  minifiedCode: '',
+};
+const codeReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET-CODE':
+      return { ...state, code: action.payload.code };
+
+    case 'BASIC-MINIFY':
+      return { ...state, minifiedCode: baiseMinify(state.code) };
+
+    default:
+      return state;
   }
 };
 
-export default myReducer;
+export default codeReducer;

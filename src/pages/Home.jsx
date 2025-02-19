@@ -1,19 +1,15 @@
-import { useReducer, useState } from 'react';
+import { useReducer } from 'react';
 // import SyntaxHighlighter from 'react-syntax-highlighter';
 // import { monokai } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { appInfo } from '../constants/appInfo';
-import myReducer from '../utils/reducer';
+import codeReducer, { codeReducerInitialState } from '../utils/reducer';
 
 export default function Home() {
-  const [code, setCode] = useState('');
-  const [state, dispatch] = useReducer(myReducer, '');
+  const [state, dispatch] = useReducer(codeReducer, codeReducerInitialState);
   const handleChange = (e) => {
-    setCode(e.target.value);
+    dispatch({ type: 'SET-CODE', payload: { code: e.target.value } });
     dispatch({
       type: 'BASIC-MINIFY',
-      payload: {
-        code,
-      },
     });
   };
 
@@ -33,17 +29,17 @@ export default function Home() {
             className='w-full bg-gray-100 bg-opacity-50 rounded-sm shadow-md border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out'
             placeholder='Paste the come here'
             onChange={handleChange}
-            value={code}
+            value={state.code}
           ></textarea>
         </div>
         <div className='relative'>
           <label htmlFor='code' className='leading-7 text-xl font-medium'>
             Before:
           </label>
-          {code && (
+          {state.code && (
             <pre className='mt-3 text-wrap group break-words shadow-md rounded-md p-4 bg-slate-50'>
               {/* <SyntaxHighlighter language='html' style={monokai}> */}
-              {code}
+              {state.code}
               {/* </SyntaxHighlighter> */}
             </pre>
           )}
@@ -52,7 +48,7 @@ export default function Home() {
           <label htmlFor='code' className='leading-7 text-xl font-medium'>
             After:
           </label>
-          {code && (
+          {state.code && (
             <pre className='mt-3 text-wrap break-words shadow-md rounded-md p-4 bg-slate-50 relative'>
               <span
                 className='absolute top-2 right-2 z-10 bg-slate-200 hover:bg-slate-900 hover:cursor-pointer hover:text-white px-2 font-medium py-1 rounded-md'
@@ -63,7 +59,7 @@ export default function Home() {
                 Copy
               </span>
               {/* <SyntaxHighlighter language='html' style={monokai}> */}
-              {state}
+              {state.minifiedCode}
               {/* </SyntaxHighlighter> */}
             </pre>
           )}
