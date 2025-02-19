@@ -8,11 +8,11 @@ export default function Home() {
   const [state, dispatch] = useReducer(codeReducer, codeReducerInitialState);
   const handleChange = (e) => {
     dispatch({ type: 'SET-CODE', payload: { code: e.target.value } });
-    dispatch({
-      type: 'BASIC-MINIFY',
-    });
+    dispatch({ type: 'BASIC-MINIFY' });
   };
-
+  const handleCopy = () => {
+    navigator.clipboard.writeText(state);
+  };
   return (
     <main className='bg-slate-200 min-h-screen px-4 py-3'>
       <h1 className='text-3xl font-bold'>{appInfo.name}</h1>
@@ -31,6 +31,26 @@ export default function Home() {
             onChange={handleChange}
             value={state.code}
           ></textarea>
+
+          <div className='flex items-center mt-5'>
+            <button className='flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'>
+              Paste
+            </button>
+            <button
+              className='flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'
+              onClick={() => {
+                dispatch({ type: 'RESET' });
+              }}
+            >
+              Reset
+            </button>
+            <button
+              className='flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'
+              onClick={handleCopy}
+            >
+              Copy
+            </button>
+          </div>
         </div>
         <div className='relative'>
           <label htmlFor='code' className='leading-7 text-xl font-medium'>
@@ -52,9 +72,7 @@ export default function Home() {
             <pre className='mt-3 text-wrap break-words shadow-md rounded-md p-4 bg-slate-50 relative'>
               <span
                 className='absolute top-2 right-2 z-10 bg-slate-200 hover:bg-slate-900 hover:cursor-pointer hover:text-white px-2 font-medium py-1 rounded-md'
-                onClick={() => {
-                  navigator.clipboard.writeText(state);
-                }}
+                onClick={handleCopy}
               >
                 Copy
               </span>

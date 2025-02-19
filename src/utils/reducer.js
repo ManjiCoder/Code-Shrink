@@ -24,6 +24,9 @@ const codeReducer = (state, action) => {
     case 'BASIC-MINIFY':
       return { ...state, minifiedCode: baiseMinify(state.code) };
 
+    case 'RESET':
+      return codeReducerInitialState;
+
     default:
       return state;
   }
