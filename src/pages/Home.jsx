@@ -12,10 +12,12 @@ export default function Home() {
   };
   const handleCopy = () => {
     navigator.clipboard.writeText(state);
+    alert('Code copied successfully!');
   };
   const handlePaste = async () => {
     const copyText = await navigator.clipboard.readText();
     dispatch({ type: 'SET-CODE', payload: { code: copyText } });
+    dispatch({ type: 'BASIC-MINIFY' });
   };
   return (
     <main className='bg-slate-200 min-h-screen px-4 py-3'>
