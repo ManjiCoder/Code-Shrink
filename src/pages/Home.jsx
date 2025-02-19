@@ -13,6 +13,10 @@ export default function Home() {
   const handleCopy = () => {
     navigator.clipboard.writeText(state);
   };
+  const handlePaste = async () => {
+    const copyText = await navigator.clipboard.readText();
+    dispatch({ type: 'SET-CODE', payload: { code: copyText } });
+  };
   return (
     <main className='bg-slate-200 min-h-screen px-4 py-3'>
       <h1 className='text-3xl font-bold'>{appInfo.name}</h1>
@@ -33,11 +37,14 @@ export default function Home() {
           ></textarea>
 
           <div className='flex items-center mt-5'>
-            <button className='flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'>
+            <button
+              className='flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'
+              onClick={handlePaste}
+            >
               Paste
             </button>
             <button
-              className='flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'
+              className='flex mx-auto text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg'
               onClick={() => {
                 dispatch({ type: 'RESET' });
               }}
@@ -45,7 +52,7 @@ export default function Home() {
               Reset
             </button>
             <button
-              className='flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg'
+              className='flex mx-auto text-white bg-green-500 border-0 py-2 px-8 focus:outline-none hover:bg-green-600 rounded text-lg'
               onClick={handleCopy}
             >
               Copy
