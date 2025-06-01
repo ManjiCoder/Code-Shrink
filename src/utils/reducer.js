@@ -1,9 +1,12 @@
 const minifyLine = (line) => {
   let newLine = '';
   const isStyle = line.includes(':');
-  if (isStyle && !line.includes('border')) {
+  if (isStyle) {
     const isPixel = line.includes('px');
-    newLine = line.split(' ').join('');
+    newLine = line
+      .split(':')
+      .map((v) => v.trim())
+      .join(':');
     if (isPixel && !line.includes('border')) {
       newLine = newLine.replaceAll('px', '');
     }
@@ -33,7 +36,7 @@ const baiseMinify = (htmlStr) => {
   // //   newHtmlStr = newHtmlStr.replace(/<\/\w+>/g, '');
 
   // newHtmlStr = newHtmlStr.replaceAll('px', '');
-  return newHtmlStr;
+  return newHtmlStr.replaceAll(";}",'}');
 };
 // Main Reducer
 export const codeReducerInitialState = {
