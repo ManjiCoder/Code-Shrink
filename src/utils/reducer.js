@@ -1,14 +1,38 @@
+const minifyLine = (line) => {
+  let newLine = '';
+  const isStyle = line.includes(':');
+  if (isStyle && !line.includes('border')) {
+    const isPixel = line.includes('px');
+    newLine = line.split(' ').join('');
+    if (isPixel && !line.includes('border')) {
+      newLine = newLine.replaceAll('px', '');
+    }
+  } else {
+    newLine = line;
+  }
+  return newLine;
+};
 const baiseMinify = (htmlStr) => {
-  let newHtmlStr = htmlStr;
-  newHtmlStr = htmlStr.split(';').filter(Boolean).join(';');
-  newHtmlStr = newHtmlStr.replaceAll('\n', '');
-  newHtmlStr = newHtmlStr.replaceAll('\t', '');
-  newHtmlStr = newHtmlStr.replaceAll('  ', '');
-  newHtmlStr = newHtmlStr.replaceAll(';}', '}');
-  newHtmlStr = newHtmlStr.replaceAll('}</style>', '');
-  //   newHtmlStr = newHtmlStr.replace(/<\/\w+>/g, '');
+  let newHtmlStr = '';
+  htmlStr.split('\n').forEach((val) => {
+    val = val.trim();
+    const skips = ['', '</style>'];
+    if (!skips.includes(val)) {
+      const newVal = minifyLine(val);
+      newHtmlStr += newVal;
+    }
+  });
+  // console.log(htmlStr.split('\n').map((str)=>str.trim()).join(''));
 
-  newHtmlStr = newHtmlStr.replaceAll('px', '');
+  // newHtmlStr = htmlStr.split(';').filter(Boolean).join(';');
+  // newHtmlStr = newHtmlStr.replaceAll('\n', '');
+  // newHtmlStr = newHtmlStr.replaceAll('\t', '');
+  // newHtmlStr = newHtmlStr.replaceAll('  ', '');
+  // newHtmlStr = newHtmlStr.replaceAll(';}', '}');
+  // newHtmlStr = newHtmlStr.replaceAll('}</style>', '');
+  // //   newHtmlStr = newHtmlStr.replace(/<\/\w+>/g, '');
+
+  // newHtmlStr = newHtmlStr.replaceAll('px', '');
   return newHtmlStr;
 };
 // Main Reducer

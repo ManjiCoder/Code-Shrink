@@ -11,8 +11,9 @@ export default function Home() {
     dispatch({ type: 'BASIC-MINIFY' });
   };
   const handleCopy = () => {
-    navigator.clipboard.writeText(state);
+    navigator.clipboard.writeText(state.minifiedCode);
     alert('Code copied successfully!');
+    
   };
   const handlePaste = async () => {
     const copyText = await navigator.clipboard.readText();
