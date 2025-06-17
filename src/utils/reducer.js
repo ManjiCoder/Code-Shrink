@@ -7,7 +7,7 @@ const minifyLine = (line) => {
       .split(':')
       .map((v) => v.trim())
       .join(':');
-    if (isPixel && !line.includes('border')) {
+    if (isPixel && !line.includes('border') && !line.includes('gap')) {
       newLine = newLine.replaceAll('px', '');
     }
   } else {
